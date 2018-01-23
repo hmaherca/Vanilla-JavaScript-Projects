@@ -2,7 +2,7 @@
 const player = document.querySelector('.player');
 //next we are going to get the viewer which is in the player div
 const video = player.querySelector('.viewer');
-const progress = player.querySelector('progress');
+const progress = player.querySelector('.progress');
 const progressBar = player.querySelector('.progress__filled');
 const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
@@ -32,6 +32,14 @@ function updateButton(){
     toggle.textContent = icon;
 }
 
+//this function will handle clicking on the progress bar
+function scrub(e){
+    //we are gonna update the videotimes based on where we clicked on the progress bar
+    const scrubTime = (e.offsetX/progress.offsetWidth)*video.duration;
+    video.currentTime =scrubTime;
+    console.log(e)
+}
+
 //this function will handle the skip buttons
 function skip(){
     //console.log(this.dataset.skip);
@@ -48,10 +56,15 @@ function handleRangeUpdate(){
 
 
 //this will handle a change to the progress bar, its elemnt has a class called flex basis which controls how far the progress bar is 0-100%
-function handleProgess(){
-    const percent = (video.currentTime/video.duration)*100;
-    progressBar.style.flexBasis = `{percent}%`
-}
+// function handleProgess(){
+//     const percent = (video.currentTime / video.duration)*100;
+//     progressBar.style.flexBasis = `${percent}%`;
+// }
+
+function handleProgress() {
+    const percent = (video.currentTime / video.duration) * 100;
+    progressBar.style.flexBasis = `${percent}%`;
+  }
 
 
 
@@ -73,6 +86,13 @@ skipButtons.forEach(button=>button.addEventListener('click', skip));
 ranges.forEach(range=>range.addEventListener('change',handleRangeUpdate));
 ranges.forEach(range=>range.addEventListener('mousemove',handleRangeUpdate));
 
+// we are listining for a click event on the progress bar that will then run the scrub function
+let mousedown = false;
+progress.addEventListener('click',scrub);
+//we are gonna listen for mouse move and if mousedown is false the function wont run if it is true the function scrub will run
+progress.addEventListener('mousemove',(e)=> mousedown && scrub(e));
+progress.addEventListener('mousedown',()=>mousedown=true);
+progress.addEventListener('mousedown',()=>mousedown=false);
 
 
 // will continue tomorrow
