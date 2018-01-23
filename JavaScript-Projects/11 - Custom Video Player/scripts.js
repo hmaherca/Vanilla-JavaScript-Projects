@@ -23,14 +23,25 @@ function togglePlay(){
     }
 }
 
-
+function updateButton(){
+    console.log('update the button')
+    //here we are checking if the video is poaused
+    // if it is we will add a play icon if not a puase icon
+    const icon = this.pause ? '►' : '❚ ❚';
+    toggle.textContent = icon
+}
 
 
 
 /*Hook up event Listeners*/
-// here we are gonna listen for the lick event and run the togglePlay function if a click happens
+// here we are gonna listen for the click and play event and run the togglePlay function if a click happens
 video.addEventListener('click', togglePlay);
-toggle.addEventListener('click', togglePlay);
+toggle.addEventListener('click', togglePlay); 
+
+// when the video is played or paused update the button
+video.addEventListener('play', updateButton);
+video.addEventListener('pause', updateButton);
+
 
 
 // will continue tomorrow
