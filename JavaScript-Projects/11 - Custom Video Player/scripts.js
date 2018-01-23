@@ -23,12 +23,34 @@ function togglePlay(){
     }
 }
 
+//this function will handle updating the icon between pause and play
 function updateButton(){
     console.log('update the button')
     //here we are checking if the video is poaused
     // if it is we will add a play icon if not a puase icon
-    const icon = this.pause ? '►' : '❚ ❚';
-    toggle.textContent = icon
+    const icon = this.paused ? '►' : '❚ ❚';
+    toggle.textContent = icon;
+}
+
+//this function will handle the skip buttons
+function skip(){
+    //console.log(this.dataset.skip);
+    //parsefloat converts the string into a true number because this.dataset.skip is a string not a true number yet
+    video.currentTime += parseFloat(this.dataset.skip);
+}
+
+//this functions handles change events for the volume and speed of the video
+function handleRangeUpdate(){
+    // console.log(this.value);
+    // console.log(this)
+    video[this.name]=this.value;
+}
+
+
+//this will handle a change to the progress bar, its elemnt has a class called flex basis which controls how far the progress bar is 0-100%
+function handleProgess(){
+    const percent = (video.currentTime/video.duration)*100;
+    progressBar.style.flexBasis = `{percent}%`
 }
 
 
@@ -41,6 +63,15 @@ toggle.addEventListener('click', togglePlay);
 // when the video is played or paused update the button
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
+
+// listening for a timeupdate and will run the handleProgress function
+video.addEventListener('timeupdate', handleProgress);
+
+//we are gonna give every button that has a data-skip attribute an event listener that will listen for a click event that will trigger the function 'skip'
+skipButtons.forEach(button=>button.addEventListener('click', skip));
+// listen for a change event and run the handleRangeUpdate function for every element that has a range attribute
+ranges.forEach(range=>range.addEventListener('change',handleRangeUpdate));
+ranges.forEach(range=>range.addEventListener('mousemove',handleRangeUpdate));
 
 
 
