@@ -58,6 +58,16 @@
       };
     }
 
+     // we want to select all images with the call '.slide-in'
+     const sliderImages = document.querySelectorAll('.slide-in');
+    //Thisfunction will run everytime someone wants to scroll
+    function checkSlide(e){
+      console.log(e)
+    }
+    
+    // this event lidtener ios going to listen to the scroll event and run the function checkSlide
+    window.addEventListener('scroll', checkSlide);
+
   </script>
 
   <style>
