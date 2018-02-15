@@ -63,9 +63,19 @@
     //Thisfunction will run everytime someone wants to scroll
     function checkSlide(e){
       sliderImages.forEach(slideImage=>{
+        //half way through the image
       const slideInAt = (window.scrollY+ window.innerHeight)-slideImage.height/2;
-      const imageBottom =sliderImage.offsetTop+sliderImage.height;
-      console.log(slideInAt)
+      //bottom half of the image
+      const imageBottom =slideImage.offsetTop+slideImage.height;
+      const isHalfShown= slideInAt>slideImage.offsetTop;
+      const isNotScrolledpast = window.scrollY<imageBottom;
+      if(isHalfShown&&isNotScrolledpast){
+        slideImage.classList.add('active');
+      }else{
+        slideImage.classList.remove('acitve');
+      }
+
+      //console.log(slideInAt)
       })
     
       // console.log(e)
