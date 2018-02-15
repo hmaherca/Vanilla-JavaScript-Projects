@@ -62,11 +62,18 @@
      const sliderImages = document.querySelectorAll('.slide-in');
     //Thisfunction will run everytime someone wants to scroll
     function checkSlide(e){
-      console.log(e)
+      sliderImages.forEach(slideImage=>{
+      const slideInAt = (window.scrollY+ window.innerHeight)-slideImage.height/2;
+      const imageBottom =sliderImage.offsetTop+sliderImage.height;
+      console.log(slideInAt)
+      })
+    
+      // console.log(e)
+      // this logs how many time this event has run! console.count(e)
     }
     
     // this event lidtener ios going to listen to the scroll event and run the function checkSlide
-    window.addEventListener('scroll', checkSlide);
+    window.addEventListener('scroll', debounce(checkSlide));
 
   </script>
 
