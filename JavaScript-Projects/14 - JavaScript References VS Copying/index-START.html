@@ -70,13 +70,33 @@
     };
 
     // and think we make a copy:
+    const captain = person;
+    captain.number=99;
 
     // how do we take a copy instead?
+    const cap2 = Object.assign({}, person,{number:99});
+    console.log(cap2)
+    // here we are decalring a new constant, it will be an object that we use the assign method on which will copy another object and add the keyvalue pair we want which here is number:99
 
     // We will hopefully soon see the object ...spread
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
-
+    const Hisham ={
+      name:'hisham',
+      age: 100,
+      social:{
+        twitter: 'none',
+        facebook:'hishamaher'
+      }
+    }
+    console.clear();
+  console.log(Hisham);
+  const dev= Object.assign({},Hisham);
+  // here you will only be able to copy one level deep
+  //do this instead for the entiore thing
+  const dev2=JSON.parse(JSON.stringify(Hisham))
+  //here we are turning the original object into a string and then immediatly turing it back into an object therefore making a copy of the whole thing.
+  // now we can go back into dev2 and add and remove key value pairs as we please without modifying the original object Hisham 
   </script>
 
 </body>
